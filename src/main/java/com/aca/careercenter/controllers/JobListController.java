@@ -4,6 +4,7 @@ import com.aca.careercenter.dao.JobDao;
 import com.aca.careercenter.dto.Job;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import java.awt.event.ActionEvent;
 import java.util.List;
@@ -13,14 +14,14 @@ import java.util.Optional;
  * Created by Vahe on 4/21/2017
  */
 @ManagedBean(name = "jobListController", eager = true)
-@SessionScoped
+@RequestScoped
 public class JobListController {
 
     private List<Job> jobList;
     private String content;
 
     public JobListController() {
-        jobList = JobDao.INSTANCE.getJobAnnouncements();
+        jobList = JobDao.INSTANCE.getApprovedJobAnnouncements();
     }
 
     public void showJobPost(int jobId){

@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.sql.DriverManager;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Vahe on 4/21/2017
@@ -23,11 +25,17 @@ public enum JobDao{
     INSTANCE();
 
     private final SessionFactory sessionFactory;
+    private EntityManager entityManager;
 
     JobDao() {
         sessionFactory = new Configuration().configure().buildSessionFactory();
 //        Class.forName("mysql.jdbc.esiminch")
 //        Connection connection = DriverManager.getConnection("asdfasdf") alternative in pure SQL way
+    }
+
+    public List<Job> getApprovedJobAnnouncements(){
+        List<Job> jobs = getJobAnnouncements();
+        return jobs.stream().filter(t -> t.isApproved() == true).collect(Collectors.toList());
     }
 
     public List<Job> getJobAnnouncements(){

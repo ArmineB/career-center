@@ -13,13 +13,16 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class PostJobController {
 
-    private Job job;
+    private String companyName;
+    private String jobTitle;
+    private String content;
 
     public void postJob(){
+        Job job = new Job();
+
+        job.setTitle(jobTitle);
+        job.setContent(content);
         JobDao.INSTANCE.postJob(job);
     }
 
-    public Job getJob() {
-        return job;
-    }
 }

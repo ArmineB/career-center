@@ -13,7 +13,9 @@ import java.io.IOException;
 public class AdminController {
 
     public void onLoad() throws IOException {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("/login.xhtml");
+        //todo
+        FacesContext.getCurrentInstance()
+                .getExternalContext().redirect("/login.xhtml");
     }
 
 }
