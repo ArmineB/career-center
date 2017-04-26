@@ -7,19 +7,24 @@
 
 <h:body>
     <h2>Carrercenter</h2>
+
+    <h:form>
+        <h:commandButton action="#{jobListController.postNewJob}" value="Post new job" />
+    </h:form>
+
     <div>
         <div style="float:left; width: 30%; height: 100%; background-color: yellow;">
             <ui:repeat value="#{jobListController.jobList}" var="item">
                 <h:form>
-                    <h:commandLink onclick="#{jobListController.showJobPost}"
-                                   value="#{item.title} / #{item.companyName}" >
-                        <ui:param name="job" value="#{item}" />
+                    <h:commandLink action="#{jobListController.showJobPost(item.id)}"
+                                   value="#{item.title} / #{item.companyName}">
                     </h:commandLink>
                 </h:form>
             </ui:repeat>
         </div>
 
         <div style="float:left; width: 70%; height: 100%; background-color: green;">
+            <h:outputLabel value="#{jobListController.content}"/>
         </div>
 
     </div>

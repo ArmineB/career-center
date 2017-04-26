@@ -5,7 +5,9 @@ import com.aca.careercenter.dto.Job;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import java.awt.event.ActionEvent;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Vahe on 4/21/2017
@@ -21,8 +23,9 @@ public class JobListController {
         jobList = JobDao.INSTANCE.getJobAnnouncements();
     }
 
-    public void showJobPost(Job job){
-        this.content = job.getContent();
+    public void showJobPost(int jobId){
+        Optional<Job> job= jobList.stream().filter(t -> t.getId() == jobId).findFirst();
+        job.ifPresent(j -> content = j.getContent());
     }
 
     public String getContent() {
@@ -59,5 +62,9 @@ public class JobListController {
 
     public String goToPostNewJobPage() {
         return "admin";
+    }
+
+    public String postNewJob() {
+        return "post?faces-redirect=true";
     }
 }
